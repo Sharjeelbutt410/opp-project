@@ -1,0 +1,159 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+using namespace std;
+
+class Contact
+{
+public:
+    string name;
+    string phone;
+};
+
+vector<Contact> contacts;
+
+void loadFile()
+{
+    ifstream fin("contacts.txt");
+
+    Contact c;
+    while (fin >> c.name >> c.phone)
+    {
+        contacts.push_back(c);
+    }
+    fin.close();
+}
+
+
+void saveFile()
+{
+    ofstream fout("contacts.txt");
+
+    for (Contact c : contacts)
+    {
+        fout << c.name << " " << c.phone << endl;
+    }
+    fout.close();
+}
+
+
+void addContact()
+{
+    Contact c;
+
+    cout << "Enter Name: ";
+    cin >> c.name;
+
+    cout << "Enter Phone: ";
+    cin >> c.phone;
+
+    contacts.push_back(c);
+    saveFile();
+
+    cout << "Contact Added.\n";
+}
+
+void searchContact()
+{
+    string name;
+    cout << "Enter Name: ";
+    cin >> name;
+
+    for (Contact c : contacts)
+    {
+        if (c.name == name)
+        {
+            cout << "Phone: " << c.phone << endl;
+            return;
+        }
+    }
+
+    cout << "Contact Not Found.\n";
+}
+
+void updateContact()
+{
+    string name;
+    cout << "Enter Name: ";
+    cin >> name;
+
+    for (int i = 0; i < contacts.size(); i++)
+    {
+        if (contacts[i].name == name)
+        {
+            cout << "Enter New Phone: ";
+            cin >> contacts[i].phone;
+
+            saveFile();
+            cout << "Contact Updated.\n";
+            return;
+        }
+    }
+
+    cout << "Contact Not Found.\n";
+}
+
+void deleteContact()
+{
+    string name;
+    cout << "Enter Name: ";
+    cin >> name;
+
+    for (int i = 0; i < contacts.size(); i++)
+    {
+        if (contacts[i].name == name)
+        {
+            contacts.erase(contacts.begin() + i);
+
+            saveFile();
+            cout << "Contact Deleted.\n";
+            return;
+        }
+    }
+
+    cout << "Contact Not Found.\n";
+}
+
+int main()
+{
+    loadFile();
+
+    int choice;
+
+    do
+    {
+        cout << "\n--- Contact Management System ---\n";
+        cout << "1. Add Contact\n";
+        cout << "2. Search Contact\n";
+        cout << "3. Update Contact\n";
+        cout << "4. Delete Contact\n";
+        cout << "5. Exit\n";
+
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            addContact();
+            break;
+        case 2:
+            searchContact();
+            break;
+        case 3:
+            updateContact();
+            break;
+        case 4:
+            deleteContact();
+            break;
+        case 5:
+            cout << "Good Bye!\n";
+            break;
+        default:
+            cout << "Invalid Choice!\n";
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
