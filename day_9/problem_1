@@ -1,0 +1,97 @@
+#include<iostream>
+using namespace std;
+
+int addition(int a,int b)
+{
+	int sum=0;
+	sum=a+b;
+	return sum;
+}
+int subtraction(int a,int b)
+{
+	int sub=0;
+	sub=a-b;
+	return sub;
+}
+int multiplication(int a,int b)
+{
+	int mul=1;
+	mul=a*b;
+	return mul;
+}
+int division(int a,int b)
+
+	{
+	int div=a/b;
+	return div;
+    }
+
+int main()
+{
+	int num1,num2; 
+	char op;
+	char choice;
+	cout<<"\n Simple Calculator\n"<<endl;
+	
+        do
+	{
+        try
+    {
+	cout<<"Enter first number: ";
+	cin>>num1;
+		
+	cout<<"Enter second number: ";
+	cin>>num2;
+    cout<<"Enter operation [ +,-,*,/ ] : ";
+	cin>>op;
+	switch(op)
+    {
+	case '+':
+	{
+		cout<<addition(num1,num2)<<endl;
+		break;
+	}
+	case '-':
+	{
+		cout<<subtraction(num1,num2)<<endl;
+		break;
+	}
+	case '*':
+	{
+		cout<<multiplication(num1,num2)<<endl;
+		break;
+	}
+	case '/':
+	{
+        if(num2==0)
+        {
+        throw "Division by zero is not possible!";
+        }
+        
+        cout<<division(num1,num2)<<endl;
+		break;
+        
+		
+	}
+	default:
+	{
+		throw "Invalid! Try again";
+	}
+
+    }
+    }
+    catch(const char* message)
+    {
+        cout<<message<<endl;
+    }
+	cout<<"Do you want to perform another calculation (Y or N): "<<endl;
+	cin>>choice;
+	}while(choice=='Y'|| choice =='y');
+
+    
+    
+	
+	cout<<"Thanks for calculating";
+	return 0;
+}
+
