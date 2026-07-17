@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student
+{
+private:
+    string name;
+    int age;
+    int marks;
+
+public:
+    void addStudent()
+    {
+        cout << "Enter student name: ";
+        cin >> name;
+
+        cout << "Enter age: ";
+        cin >> age;
+
+        if(age < 5 || age > 100)
+        {
+            throw "Invalid age!";
+        }
+
+        cout << "Enter marks: ";
+        cin >> marks;
+
+        if(marks < 0 || marks > 100)
+        {
+            throw "Invalid marks!";
+        }
+
+        cout << "\nStudent record added successfully.\n";
+    }
+
+    void display()
+    {
+        if(name == "")
+        {
+            throw "Student record not found!";
+        }
+
+        cout << "\nStudent Name : " << name << endl;
+        cout << "Age          : " << age << endl;
+        cout << "Marks        : " << marks << endl;
+    }
+};
+
+int main()
+{
+    Student s;
+    int choice;
+
+    do
+    {
+        cout << "\n===== Student Result Management System =====\n";
+        cout << "1. Add Student\n";
+        cout << "2. Display Student\n";
+        cout << "3. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        try
+        {
+            switch(choice)
+            {
+                case 1:
+                    s.addStudent();
+                    break;
+
+                case 2:
+                    s.display();
+                    break;
+
+                case 3:
+                    cout << "Thank You!\n";
+                    break;
+
+                default:
+                    throw "Invalid menu choice!";
+            }
+        }
+        catch(const char* message)
+        {
+            cout << "Error: " << message << endl;
+        }
+
+    } while(choice != 3);
+
+    return 0;
+}
