@@ -33,7 +33,7 @@ int main()
                 cout<<"Name :";
                 getline(cin,name);
                 students.push_back(name);
-                cout<<"Student Added Successfully! \n"<<endl;
+                cout<<"\nStudent Added Successfully! \n"<<endl;
                 break;
             }
             case 2:
@@ -47,14 +47,14 @@ int main()
                     if(students[i] == name)
                     {
                         students.erase(students.begin() + i);
-                        cout<<"Student Remove Successfully! \n";
+                        cout<<"\nStudent Removed Successfully! \n";
                         found = true;
                         break;
                     } 
                 }
                 if(!found)
                     {
-                        cout<<"Student Not Found! \n"<<endl;
+                        cout<<"\nStudent Not Found! \n"<<endl;
                         break;
                     }
                 break;
@@ -70,7 +70,7 @@ int main()
                     {
                         if(students[i] == name)
                         {
-                            cout<<"Student Found! \n";
+                            cout<<"\nStudent Found! \n";
                             found = true;
                             break;
                         }
@@ -78,13 +78,13 @@ int main()
                     }
                     if(!found)
                         {
-                            cout<<"Student Not Found! \n"<<endl;
+                            cout<<"\n Student Not Found! \n"<<endl;
                         }
                      break;
                 }
             case 4:
             {
-                cout<<"Programm Ended "<<endl;
+                cout<<"\nProgramm Ended \n"<<endl;
                 break;
             }
             default:
