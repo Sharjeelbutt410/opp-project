@@ -1,0 +1,99 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main()
+{
+    vector<string> students;
+    int choice;
+
+    do{
+        cout<<"1. Add student "<<endl;
+        cout<<"2. Remove Student "<<endl;
+        cout<<"3. Search Student "<<endl;
+        cout<<"4. Exit "<<endl;
+        cout<<"Enter your choice : ";
+        cin>>choice;
+        cin.ignore();
+        if (cin.fail())
+        {
+            cout<<"Invalid choice!"<<endl;
+            cin.clear();
+            cin.ignore(1000,'\n');
+            choice = 0;
+            continue;
+        }
+        
+        
+        switch(choice)
+        {
+            case 1:
+            {
+                string name;
+                cout<<"Name :";
+                getline(cin,name);
+                students.push_back(name);
+                cout<<"Student Added Successfully! \n"<<endl;
+                break;
+            }
+            case 2:
+            {
+                string name;
+                cout<<"Name : ";
+                getline(cin,name);
+                bool found = false;
+                for(int i = 0; i<students.size(); i++)
+                {
+                    if(students[i] == name)
+                    {
+                        students.erase(students.begin() + i);
+                        cout<<"Student Remove Successfully! \n";
+                        found = true;
+                        break;
+                    } 
+                }
+                if(!found)
+                    {
+                        cout<<"Student Not Found! \n"<<endl;
+                        break;
+                    }
+                break;
+                
+            }
+            case 3:
+                {
+                    string name;
+                    cout<<"Name : ";
+                    getline(cin,name);
+                    bool found = false;
+                    for(int i = 0; i<students.size(); i++)
+                    {
+                        if(students[i] == name)
+                        {
+                            cout<<"Student Found! \n";
+                            found = true;
+                            break;
+                        }
+                        
+                    }
+                    if(!found)
+                        {
+                            cout<<"Student Not Found! \n"<<endl;
+                        }
+                     break;
+                }
+            case 4:
+            {
+                cout<<"Programm Ended "<<endl;
+                break;
+            }
+            default:
+            {
+                cout<<"Invalid choice!\n"<<endl;
+            }
+        }
+    }while (choice !=4);
+
+    
+
+}
