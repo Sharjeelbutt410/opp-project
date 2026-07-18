@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+template <class T>
+T maximum(T a,T b)
+{
+    if(a>b)
+    {
+        return a;
+    }
+    
+    else
+    {
+        return b;
+    }
+}
+
+int main()
+{
+    cout<<maximum(10,50)<<endl;
+    cout<<maximum(10.78,11.77)<<endl;
+    cout<<maximum('A','Z')<<endl;
+
+}
