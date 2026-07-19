@@ -1,0 +1,301 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<fstream>
+using namespace std;
+
+class Student{
+    private:
+    string name;
+    string id;
+    string phone;
+    int age;
+    string degree;
+    public:
+    Student() {}
+    Student(string n,string i,string p,int a,string d)
+    {
+        name = n;
+        id = i;
+        phone = p;
+        age = a;
+        degree = d;
+        
+    }
+    void setname(string n)
+    {
+        name = n;
+    }
+    void setphone(string p)
+    {
+        phone = p;
+    }
+    void setage(int a)
+    {
+        age = a;
+    }
+    void setdegree(string d)
+    {
+        degree = d;
+    }
+    string getname()
+    {
+        return name;
+    }
+    string getid()
+    {
+        return id;
+    }
+    string getphone()
+    {
+        return phone;
+    }
+    int getage()
+    {
+        return age;
+    }
+    string getdegree()
+    {
+        return degree;
+    }
+
+};
+vector<Student> student;
+
+void loadfile()
+{
+    ifstream file("student.txt");
+
+    if(!file)
+    {
+        return;
+    }
+    string name,id,phone,degree;
+    int age;
+    while(getline(file,name))
+    {
+        getline(file,id);
+        getline(file,phone);
+        file>>age;
+        file.ignore();
+        getline(file,degree);
+
+        student.push_back(Student(name,id,phone,age,degree));
+
+    }
+    file.close();
+}
+void savefile()
+{
+    ofstream fsave("student.txt");
+    
+        for(int i = 0; i < student.size(); i++)
+        {
+            fsave<<student[i].getname()<<endl;
+            fsave<<student[i].getid()<<endl;
+            fsave<<student[i].getphone()<<endl;
+            fsave<<student[i].getage()<<endl;
+            fsave<<student[i].getdegree()<<endl;
+        }
+    fsave.close();
+}
+
+int main()
+{
+    loadfile();
+    int choice;
+
+    do{
+
+        cout<<"====Student Management System====\n";
+        cout<<"1. Add Students \n";
+        cout<<"2. Search Student \n";
+        cout<<"3. Update Student \n";
+        cout<<"4. Delete \n";
+        cout<<"5. Display All Students \n";
+        cout<<"6. Exit \n";
+        cout<<"Enter your choice : ";
+        cin>>choice;
+        cin.ignore();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                string name;
+                string id;
+                string phone;
+                int age;
+                string degree;
+                bool found = false;
+                cout<<"\n----- Student Details -----\n";
+                cout<<"Name :";
+                getline(cin,name);
+                cout<<"ID : ";
+                cin>>id;
+                cout<<"Phone no : ";
+                cin>>phone;
+                cout<<"Age: ";
+                cin>>age;
+                cin.ignore();
+                cout<<"Degree : ";
+                getline(cin,degree);
+                for (int i = 0; i < student.size(); i++)
+                {
+                    if(student[i].getid() == id)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (found)
+                {
+                    cout<<"ID already exist "<<endl;
+                }
+                else
+                {
+                    student.push_back(Student(name,id,phone,age,degree));
+                    cout<<"\n Student Added Successfully! \n"<<endl;
+                    savefile();
+                }
+                    break;
+            }
+            case 2:
+            {
+                string name;
+                cout<<"Name : ";
+                getline(cin,name);
+                bool found = false;
+                for(int i = 0; i < student.size(); i++)
+                {
+                    if(student[i].getname() == name)
+                    {
+                        cout<<"\nStudent found!\n";
+                        cout << "Name : " << student[i].getname() << endl;
+                        cout<<endl;
+                        cout << "ID : " << student[i].getid() << endl;
+                        cout<<endl;
+                        cout << "Phone : " << student[i].getphone() << endl;
+                        cout<<endl;
+                        cout << "Age : " << student[i].getage() << endl;
+                        cout<<endl;
+                        cout << "Degree : " << student[i].getdegree() << endl;
+                        cout<<endl;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    cout<<"\nStudent not Found!\n";
+                }
+                break;
+            }
+            case 3:
+            {
+                string searchid;
+                string newname;
+                string newphone;
+                int newage;
+                string newdegree;
+                bool found = false;
+                cout<<"Enter Student ID : ";
+                getline(cin,searchid);
+                for (int i = 0; i < student.size(); i++)
+                {
+                    if (student[i].getid() == searchid)
+                    {
+                        found = true;
+                        cout<<"Name : ";
+                        getline(cin,newname);
+                        cout<<"Phone no : ";
+                        cin>>newphone;
+                        cout<<"Age : ";
+                        cin>>newage;
+                        cin.ignore();
+                        cout<<"Degree : ";
+                        getline(cin,newdegree);
+
+                        student[i].setname(newname);
+                        student[i].setage(newage);
+                        student[i].setphone(newphone);
+                        student[i].setdegree(newdegree);
+                        savefile();
+
+                        cout<<"\nUpdated Successfully \n"<<endl;
+
+                        break;
+                    }
+                    
+                }
+                if(!found)
+                {
+                    cout<<"Invalid Id!\n";
+                }
+                break;
+            }
+            case 4:
+            {
+                string searchid;
+                cout<<"Enter Student ID : ";
+                getline(cin,searchid);
+                bool found = false;
+                for(int i = 0; i < student.size(); i++)
+                    {
+                        if (student[i].getid() == searchid)
+                        {
+                            found = true;
+                            student.erase(student.begin() + i);
+                            savefile();
+                            cout<<"\nStudent deleted Successfully! \n"<<endl;
+                            break;
+                        }
+                        
+                    }
+                    if (!found)
+                    {
+                        cout<<"\nStudent not Found! \n";
+                    }
+                    
+                    break;
+            }
+            case 5:
+            {
+                if (student.empty())
+                {
+                    cout<<"No Data Found! \n";
+                    break;
+                }
+                else
+                {
+                 for (int i = 0; i < student.size(); i++)
+                  {
+                    cout<<"-----Student "<< i + 1<< "----- \n"<<endl;
+                    cout<<"Name : " << student[i].getname()<<endl;
+                    cout<<endl;
+                    cout<<"ID : " << student[i].getid()<<endl;
+                    cout<<endl;
+                    cout<<"Phone no : " << student[i].getphone()<<endl;
+                    cout<<endl;
+                    cout<<"Age : " << student[i].getage()<<endl;
+                    cout<<endl;
+                    cout<<"Degree : " << student[i].getdegree()<<endl;
+                    cout<<endl;
+                  }
+                }
+                break;
+            }
+            case 6:
+            {
+                cout<<"\nProgram Ended..."<<endl;
+                break;
+            }
+            default:
+            {
+                cout<<"\nInvalid choice"<<endl;
+            }
+        }
+    }while(choice != 6);
+
+}
