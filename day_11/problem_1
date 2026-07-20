@@ -1,0 +1,75 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+
+class Student{
+    private:
+    string name;
+    public:
+
+    Student(string n)
+    {
+        name = n;
+    }
+    string getname()
+    {
+        return name;
+    }
+};
+class Teacher{
+    private:
+    string name;
+    vector<Student> student;
+    public:
+    Teacher(string n)
+    {
+        name = n;
+    }
+    void addstudent(Student s)
+    {
+        student.push_back(s);
+    }
+    void displaystudent()
+    {
+        cout<<"Teacher : "<<name<<endl;
+        cout<<"Assigned students : "<<endl;
+
+        for(int i = 0; i<student.size(); i++)
+        {
+            cout<<i + 1 <<"." << student[i].getname()<<endl;
+        }
+    }
+
+};
+
+int main()
+{
+    int choice;
+    string studentname,teachername;
+
+    cout<<"Who is teaching : ";
+    getline(cin,teachername);
+    Teacher t1(teachername);
+
+    cout<<"How many Students you want to enter : ";
+    cin>>choice;
+    cin.ignore();
+    for(int i = 0; i<choice; i++)
+    {
+        cout<<"Enter Student "<< i+ 1<<" Name : ";
+        getline(cin,studentname);
+        if(studentname == "")
+        {
+            cout<<"Invalid!"<<endl;
+
+        }
+        else
+        {
+            Student s(studentname);
+            t1.addstudent(s);
+        }
+    }
+    t1.displaystudent();
+    return 0;
+}
