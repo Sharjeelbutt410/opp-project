@@ -1,0 +1,79 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class CPU{
+private:
+    string name;
+public:
+    CPU(string n)
+    {
+        name = n;
+    }
+    void displayCpu()
+    {
+        cout<<"CPU : " << name << endl;
+    }
+ 
+};
+class RAM{
+private:
+    string type;
+    int capacity;
+public:
+    RAM(string t,int c)
+    {
+        type = t;
+        capacity = c;
+    }
+    void displayRam()
+    {
+        cout<<"RAM : " << type <<" " <<capacity <<" GB" <<endl;
+    }
+ 
+};
+class Storage{
+private:
+    string type;
+    int capacity;
+    
+public:
+    Storage(string t,int c)
+    {
+        type = t;
+        capacity = c;
+    }
+    void displayStorage()
+    {
+        cout<<"Storage : " << type <<" " << capacity <<" GB " << endl;
+    }
+};
+class Computer{
+private:
+    string brand;
+    CPU cpu;
+    RAM ram;
+    Storage storage;
+
+public:
+    Computer(string b,string cn,string rt,int rc,string st,int sc)
+    :cpu(cn) , ram(rt,rc) , storage(st,sc)
+    {
+        brand = b;
+    }
+    void displayComputer()
+    {
+        cout<<"Brand : " << brand << endl;
+        cpu.displayCpu();
+        ram.displayRam();
+        storage.displayStorage();
+    }
+ 
+};
+
+int main()
+{
+    Computer c("HP","Intel core i7 13th generation","DDR5",16,"SSD",512);
+
+    cout<<"---Computer Detail's-----" << endl;
+    c.displayComputer();
+}
