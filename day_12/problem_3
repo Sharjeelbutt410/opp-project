@@ -1,0 +1,112 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+
+class  Customer{
+    private:
+        string name;
+        string phone;
+    public:
+        Customer(string n,string p)
+        {
+            name =  n;
+            phone = p;
+        }
+        void displayCustomer() const
+        {
+            cout<<"Customer Name : " << name << endl;
+            cout<<"Customer Phone : " << phone << endl;
+        }
+};
+class OrderItem{
+    private:
+        string foodname;
+        int quantity;
+        float price;
+    public:
+    OrderItem(string f,int q,float p)
+    {
+        foodname = f;
+        quantity = q;
+        price = p;
+    }
+    float gettotal()
+    {
+        return quantity * price;
+    }
+    void displayOrderItem() 
+    {
+        cout<<"Food : " << foodname << endl;
+        cout<< "Quantity : " << quantity << endl;
+        cout<< "Price : " << price << endl;
+        cout<<"Total : " << gettotal() << endl;
+    }
+        
+};
+class Payment{
+    private:
+        string method;
+   public:
+    Payment(string m)
+    {
+        method = m;
+    }
+    void displaypayment() const
+    {
+        cout<<"Payment Method : " << method << endl;
+    }
+    
+};
+
+class Order{
+    private:
+        Customer customer;
+        Payment payment;
+        vector<OrderItem> items;
+    public:
+        Order(Customer c,Payment p)
+        :customer(c),payment(p)
+        {
+
+        }
+        void addItems(OrderItem item)
+        {
+            items.push_back(item);
+        }
+        void displayOrder()
+        {
+            cout<<"\n===== Customer =====\n " << endl;
+            customer.displayCustomer();
+            cout<<"\n=== Order Items ===\n " << endl;
+            float GrandTotal = 0;
+            for (int i = 0; i < items.size(); i++)
+            {
+                items[i].displayOrderItem();
+                cout<<"----------------\n";
+               GrandTotal  += items[i].gettotal();
+            }
+            cout<<"\n Grand Total : " << GrandTotal << endl;
+
+            cout<<"\n====Payment====\n" << endl;
+            payment.displaypayment();
+            cout<<"\n";
+        }
+
+};
+
+int main()
+{
+    Customer c("Sharjeel Butt","03215669227");
+    Payment p("Cash");
+    Order o(c,p);
+
+    o.addItems(OrderItem("Pizza",2,2000));
+    o.addItems(OrderItem("Burger",6,500));
+    o.addItems(OrderItem("Pasta",2,750));
+    o.addItems(OrderItem("Cold Drink",4,1000));
+
+    o.displayOrder();
+    return 0;
+
+}
