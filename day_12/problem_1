@@ -1,0 +1,51 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class Engine{
+private:
+    string type;
+    int hp;
+public:
+    Engine(string t,int h)
+    {
+        type = t;
+        hp = h;
+    }
+    void displayengine()
+    {
+        cout<<"Type : "<< type << endl;
+        cout<<"Horse power : "<< hp <<" cc " <<endl;
+    }
+};
+class Car{
+private:
+    string brand;
+    string model;
+    int year;
+    string color;
+    Engine engine;
+public:
+    Car(string b,string m,int y,string c,string t,int h)
+    :engine(t,h)
+    {
+        brand = b;
+        model = m;
+        year = y;
+        color = c;
+    }
+    void displaycar()
+    {
+        cout<<"Brand : " << brand << endl;
+        cout<<"Model : " << model << endl;
+        cout<<"Year : " << year <<endl;
+        cout<<"Color : " << color << endl;
+        engine.displayengine();
+    }
+};
+
+int main()
+{
+    Car c("Honda","corolla",2016,"Black","Petrol",1600);
+    cout<<"-----Car Information-----" << endl;
+    c.displaycar();
+}
